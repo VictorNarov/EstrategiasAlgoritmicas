@@ -16,6 +16,7 @@ import java.nio.charset.Charset;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 /**
@@ -26,13 +27,15 @@ public class LeerFichero {
 
     private final Path ruta;
     private final static Charset ENCODING = StandardCharsets.UTF_8;
+    private ArrayList<Punto> PuntosLeidos = new ArrayList<Punto>();
 
     public LeerFichero(String nombreFich) {
         ruta = Paths.get(nombreFich);
 
     }
-
-    public void procesar() throws IOException {
+    public ArrayList<Punto> getPuntos (){return this.PuntosLeidos;}
+    
+    public void procesar() throws IOException, Exception {
         try ( Scanner scanner = new Scanner(ruta, ENCODING.name())) {
             for (int i = 0; i < 6; i++) { //Salta las 7 primeras lineas de informacion
                 scanner.nextLine();
@@ -40,12 +43,12 @@ public class LeerFichero {
             String linea = scanner.nextLine();
             while(scanner.hasNextLine() && !linea.equals("EOF"))
             {
-                procesarLinea(linea);
+                PuntosLeidos.add(procesarLinea(linea));
                 linea = scanner.nextLine();          
             }
         }
     }
-    protected void procesarLinea(String linea) {
+    protected Punto procesarLinea(String linea) throws Exception {
         //use a second Scanner to parse the content of each line 
         try ( Scanner scanner = new Scanner(linea)) {
             scanner.useDelimiter(" ");
@@ -54,11 +57,14 @@ public class LeerFichero {
                 int id = Integer.parseInt(scanner.next());
                 double x = Double.parseDouble(scanner.next());
                 double y = Double.parseDouble(scanner.next());
+                Punto p = new Punto(id,x,y);
+                return p;
                 
-                System.out.println("ID: "+id+" "+x+" "+y);
-            } else {
-                System.out.println("Error al procesar linea!");
+            
+          
+            }else throw new java.lang.Exception("Error al procesar linea!");
+                
+                
             }
         }
     }
-}
