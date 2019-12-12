@@ -71,4 +71,5 @@ Si el valor obtenido es muy bajo (<25) nos indica que los puntos tienden a estar
 Si se da esta situación, se procederá a llamar al heapsort con un parámetro booleano que le indicará que tiene que ordenar con respecto a la coordenada Y en vez de como hacía por defecto, la X.
 Mismamente, el DyV recibirá otro parámetro que le indicará que tiene que calcular los índices según la coordenada Y.
 Gracias a esta mejora, el DyV obtiene la solución como si de un caso medio se tratase: 
+
 ![Solucion con mejora](https://gyazo.com/d23a1bd538e26846b7c304e2fcba106c.png)
